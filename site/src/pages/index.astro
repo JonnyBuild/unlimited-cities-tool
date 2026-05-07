@@ -1,0 +1,625 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { cases } from '../data/cases';
+import AnimatedHero from '../components/animations/AnimatedHero.tsx';
+import Reveal from '../components/animations/Reveal.tsx';
+import Stagger from '../components/animations/Stagger.tsx';
+import Counter from '../components/animations/Counter.tsx';
+import MagneticLink from '../components/animations/MagneticLink.tsx';
+import DrawRule from '../components/animations/DrawRule.tsx';
+import { link } from '../utils/link';
+
+const homeCases = cases.slice(0, 6);
+
+const phases = [
+  { n: '01', t: 'Get to know the process and the platform' },
+  { n: '02', t: 'Define a process suited to your territory' },
+  { n: '03', t: 'Run contributory workshops' },
+  { n: '04', t: 'Prepare the digital platform' },
+  { n: '05', t: 'Run digital mediation in public space' },
+  { n: '06', t: 'Analyse contributions' },
+  { n: '07', t: 'Restitution & sharing' },
+];
+
+const breakdowns = [
+  { n: '01', t: 'Lack of representativeness',  b: 'Attracting a truly diverse cross-section of inhabitants remains a persistent challenge.' },
+  { n: '02', t: 'Public disengagement',        b: 'Transition issues are complex and disconnected from people’s immediate concerns.' },
+  { n: '03', t: 'Risk of distrust',            b: '“Participation”, “co-construction” promise more than the actual room for manoeuvre.' },
+  { n: '04', t: 'Lack of perceived usefulness', b: 'Projects unfold over years — contributions seem to disappear into a void.' },
+];
+
+const numbers = [
+  { v: '30+',       l: 'Territories worldwide' },
+  { v: '1 400',     l: 'Participants per project' },
+  { v: 'UN-Habitat', l: 'Recognition' },
+  { v: '2011',      l: 'Founding year' },
+];
+---
+
+<BaseLayout
+  title="Unlimited Cities"
+  description="The free, open-source tool that turns citizen participation into urban transitions. Open Urbanism Foundation, Geneva."
+  pageNumber="00"
+  pageLabel="Home"
+>
+  {/* ───── 1. HERO ───── */}
+  <section class="uc-shell uc-section-hero">
+    <div class="uc-grid">
+      <div class="uc-hero-meta">
+        <Reveal client:load delay={1.0} immediate y={20}>
+          <p class="uc-mono">N° 00 — Home</p>
+          <p class="uc-mono">2026 / Geneva</p>
+        </Reveal>
+      </div>
+
+      <div class="uc-hero-title">
+        <AnimatedHero
+          client:load
+          className="uc-display"
+          startDelay={1.05}
+          lines={['Build the city', 'with the people', 'who live in it']}
+          trailing="."
+        />
+      </div>
+
+      <div class="uc-hero-side">
+        <Reveal client:load delay={1.6} immediate y={24}>
+          <p class="uc-lead uc-hero-lead">
+            Unlimited Cities is the free, open-source tool that turns
+            citizen participation into urban transitions.
+          </p>
+          <p class="uc-body uc-hero-body">
+            Built around the <em>In-Situ Collage</em> method.
+            Deployed in more than 30 territories, on four continents,
+            since 2011.
+          </p>
+          <div class="uc-hero-actions">
+            <MagneticLink client:load href={link('/process')} className="uc-link-arrow">
+              Discover the process
+            </MagneticLink>
+            <MagneticLink client:load href={link('/cases')} className="uc-link-arrow">
+              See city projects
+            </MagneticLink>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── 2. NUMBERS ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-numbers">
+      <Stagger client:load className="uc-numbers-stagger" stagger={0.12}>
+        {numbers.map((n, i) => (
+          <div class="uc-number-cell">
+            <Stagger.Item client:load>
+              <p class="uc-mono">{String(i + 1).padStart(2, '0')}</p>
+              <p class="uc-number-value">
+                <Counter client:load value={n.v} noGrouping={n.v === '2011'} />
+              </p>
+              <p class="uc-caption">{n.l}</p>
+            </Stagger.Item>
+          </div>
+        ))}
+      </Stagger>
+    </div>
+  </section>
+
+  {/* ───── 3. PROBLEM ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-problem">
+      <div class="uc-problem-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Chapter 01 — The diagnosis</p>
+        </Reveal>
+      </div>
+      <div class="uc-problem-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1">
+            Why does citizen participation<br />
+            in urban planning so often fail?
+          </h2>
+        </Reveal>
+      </div>
+      <div class="uc-problem-intro">
+        <Reveal client:load delay={0.15}>
+          <p class="uc-lead">
+            Four breakdowns documented by academic research
+            and by the municipalities themselves.
+          </p>
+        </Reveal>
+      </div>
+
+      <div class="uc-problem-list">
+        <Stagger client:load className="uc-breakdowns" stagger={0.1}>
+          {breakdowns.map((b) => (
+            <div class="uc-breakdown">
+              <Stagger.Item client:load>
+                <p class="uc-mono">{b.n}</p>
+                <h3 class="uc-h3 uc-breakdown-title">{b.t}</h3>
+                <p class="uc-body">{b.b}</p>
+              </Stagger.Item>
+            </div>
+          ))}
+        </Stagger>
+      </div>
+
+      <div class="uc-problem-outro">
+        <Reveal client:load delay={0.1}>
+          <p class="uc-h2 uc-problem-outro-text">
+            When participation fails, more than opportunities are lost: it
+            silently undermines the very foundations of democracy.
+          </p>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── 4. METHOD ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-method">
+      <div class="uc-method-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Chapter 02 — The method</p>
+        </Reveal>
+      </div>
+      <div class="uc-method-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-hero">
+            The In-Situ Collage<span class="uc-bold">.</span>
+          </h2>
+          <p class="uc-method-tag">Create on-site. See everyone in real time.</p>
+        </Reveal>
+      </div>
+      <div class="uc-method-body-col">
+        <Reveal client:load delay={0.1}>
+          <p class="uc-lead">
+            Rather than inviting citizens to meetings, we go where they live.
+            Each person creates an annotated collage directly on the site to
+            be transformed, and every contribution becomes immediately
+            visible to all.
+          </p>
+          <p class="uc-body">
+            This single shift addresses all four breakdowns at once:
+            <em>representativeness</em> (we go to people),
+            <em>expression</em> (a creative, accessible tool),
+            <em>trust</em> (transparency in real time), and
+            <em>usefulness</em> (collages become the substance of decisions).
+          </p>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── 5. PROCESS ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-process-block">
+      <div class="uc-process-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Chapter 03 — The process</p>
+        </Reveal>
+      </div>
+      <div class="uc-process-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1">
+            Seven phases<span class="uc-bold">,</span><br />
+            forged in the field<span class="uc-bold">.</span>
+          </h2>
+        </Reveal>
+      </div>
+      <div class="uc-process-intro">
+        <Reveal client:load delay={0.15}>
+          <p class="uc-body">
+            Adapt them, shorten them, expand them — they belong to you
+            as much as to us.
+          </p>
+        </Reveal>
+      </div>
+
+      <ol class="uc-process-list">
+        <Stagger client:load className="uc-process-stagger" stagger={0.07}>
+          {phases.map((p) => (
+            <li class="uc-process-item">
+              <Stagger.Item client:load>
+                <span class="uc-mono uc-process-num">{p.n}</span>
+                <span class="uc-process-text">{p.t}</span>
+              </Stagger.Item>
+            </li>
+          ))}
+        </Stagger>
+      </ol>
+
+      <div class="uc-process-cta">
+        <Reveal client:load delay={0.05}>
+          <MagneticLink client:load href={link('/process')} className="uc-link-arrow">
+            See the full process
+          </MagneticLink>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── 6. FIELD ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-field">
+      <div class="uc-field-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Chapter 04 — The field</p>
+        </Reveal>
+      </div>
+      <div class="uc-field-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1">
+            Ten city projects<span class="uc-bold">,</span><br />
+            four research evolutions<span class="uc-bold">.</span>
+          </h2>
+        </Reveal>
+      </div>
+      <div class="uc-field-intro">
+        <Reveal client:load delay={0.15}>
+          <p class="uc-body">
+            More than 30 territories have deployed Unlimited Cities.
+            Fourteen of them are documented in detail — split between
+            real city projects and research-driven evolutions of the tool.
+          </p>
+        </Reveal>
+      </div>
+
+      <div class="uc-field-list">
+        <Stagger client:load className="uc-field-stagger" stagger={0.06}>
+          {homeCases.map((c, i) => (
+            <Stagger.Item client:load>
+              <CaseCard caseStudy={c} index={i} />
+            </Stagger.Item>
+          ))}
+        </Stagger>
+      </div>
+
+      <div class="uc-field-cta">
+        <Reveal client:load>
+          <div class="uc-field-cta-row">
+            <MagneticLink client:load href={link('/cases')} className="uc-link-arrow">
+              See city projects
+            </MagneticLink>
+            <MagneticLink client:load href={link('/research')} className="uc-link-arrow">
+              See Research &amp; Evolution
+            </MagneticLink>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── 7. PROOF ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-proof">
+      <div class="uc-proof-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Chapter 05 — Recognition</p>
+        </Reveal>
+      </div>
+      <div class="uc-proof-quote">
+        <Reveal client:load delay={0.1}>
+          <blockquote class="uc-quote">
+            I place enormous hope in Unlimited Cities. It is a means of
+            better conducting democratic debate, with the capacity to
+            reach new layers of the population.
+            <cite>
+              Michael Delafosse —<br />
+              Mayor of Montpellier<br />
+              (then Deputy Mayor for Urban Planning)
+            </cite>
+          </blockquote>
+        </Reveal>
+      </div>
+      <div class="uc-proof-recognition">
+        <Reveal client:load delay={0.2}>
+          <p class="uc-mono uc-proof-label">Recognitions</p>
+          <ul class="uc-proof-list">
+            <li>UN-Habitat</li>
+            <li>Several international prizes</li>
+            <li>European research programmes</li>
+            <li>30+ partner cities</li>
+          </ul>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* ───── 8. FOUNDATION ───── */}
+  <section class="uc-shell uc-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-foundation">
+      <div class="uc-foundation-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Chapter 06 — The foundation</p>
+        </Reveal>
+      </div>
+      <div class="uc-foundation-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1">
+            Open-source from Geneva<span class="uc-bold">,</span><br />
+            shared everywhere in the world<span class="uc-bold">.</span>
+          </h2>
+        </Reveal>
+      </div>
+      <div class="uc-foundation-body">
+        <Reveal client:load delay={0.15}>
+          <p class="uc-lead">
+            Unlimited Cities is carried by the <em>Open Urbanism Foundation</em>,
+            based in Geneva. The tool is co-developed with partner cities
+            and rooted in European urban research.
+          </p>
+          <dl class="uc-foundation-licenses">
+            <div>
+              <dt class="uc-mono">Process</dt>
+              <dd>CC BY-SA 4.0</dd>
+            </div>
+            <div>
+              <dt class="uc-mono">Platform</dt>
+              <dd>GNU AGPLv3</dd>
+            </div>
+          </dl>
+          <MagneticLink client:load href={link('/foundation')} className="uc-link-arrow">
+            Discover the foundation
+          </MagneticLink>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ───── HERO ───── */
+  .uc-section-hero {
+    padding-top: clamp(4rem, 7vw, 7rem);
+    padding-bottom: clamp(5rem, 9vw, 9rem);
+  }
+  .uc-hero-meta {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .uc-hero-title {
+    grid-column: 1 / span 12;
+    grid-row: 2;
+    margin-top: 1.5rem;
+  }
+  .uc-hero-side {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-ink);
+  }
+  .uc-hero-lead { margin-bottom: 1.25rem; max-width: 50ch; }
+  .uc-hero-body { margin-bottom: 2rem; color: var(--color-uc-grey); max-width: 50ch; }
+  .uc-hero-body em { color: var(--color-uc-ink); font-style: italic; }
+  .uc-hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  @media (max-width: 1280px) {
+    .uc-hero-side { grid-column: 1 / -1; padding-left: 0; border-left: 0; margin-top: 2.5rem; }
+    .uc-hero-lead, .uc-hero-body { max-width: 60ch; }
+  }
+
+  /* ───── NUMBERS ───── */
+  .uc-numbers {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  :global(.uc-numbers-stagger) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--grid-gutter);
+  }
+  :global(.uc-number-cell) {
+    padding-right: 0.5rem;
+    min-width: 0;
+  }
+  .uc-number-cell .uc-mono { margin: 0 0 1rem; }
+  .uc-number-value {
+    font-size: clamp(2rem, 3.6vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 0 0 0.75rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: visible;
+  }
+  @media (max-width: 1100px) {
+    .uc-number-value { font-size: clamp(1.75rem, 3.4vw, 2.6rem); }
+  }
+  @media (max-width: 800px) {
+    :global(.uc-numbers-stagger) { grid-template-columns: repeat(2, 1fr); }
+    :global(.uc-number-cell) { margin-bottom: 1.5rem; }
+    .uc-number-value { font-size: clamp(2rem, 7vw, 2.75rem); }
+  }
+
+  /* ───── COMMON CHAPTER GRID ───── */
+  .uc-problem,
+  .uc-method,
+  .uc-process-block,
+  .uc-field,
+  .uc-proof,
+  .uc-foundation {
+    padding-top: 4rem;
+    row-gap: 4rem;
+  }
+
+  /* ───── PROBLEM ───── */
+  .uc-problem-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-problem-title { grid-column: 1 / span 6; grid-row: 2; }
+  .uc-problem-intro {
+    grid-column: 7 / span 6;
+    grid-row: 2;
+    align-self: end;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-line);
+  }
+  .uc-problem-list { grid-column: 4 / span 9; grid-row: 3; }
+  :global(.uc-breakdowns) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .uc-problem-outro { grid-column: 4 / span 9; grid-row: 4; }
+  .uc-breakdown .uc-mono { margin: 0 0 0.6rem; }
+  .uc-breakdown-title { margin-bottom: 0.6rem; }
+  .uc-problem-outro-text { max-width: 56ch; line-height: 1.25; }
+  @media (max-width: 1280px) {
+    .uc-problem-title { grid-column: 1 / -1; }
+    .uc-problem-intro {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      padding-left: 0;
+      border-left: 0;
+      margin-top: 1.5rem;
+    }
+    .uc-problem-list { grid-column: 1 / -1; grid-row: 4; }
+    .uc-problem-outro { grid-column: 1 / -1; grid-row: 5; }
+  }
+  @media (max-width: 760px) {
+    :global(.uc-breakdowns) { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* ───── METHOD ───── */
+  .uc-method-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-method-title { grid-column: 1 / span 12; grid-row: 2; }
+  .uc-method-body-col { grid-column: 6 / span 7; grid-row: 3; }
+  .uc-method-body-col p { max-width: 60ch; }
+  .uc-method-tag {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--color-uc-grey);
+    font-weight: 400;
+  }
+  .uc-method-body-col em { font-style: italic; font-weight: 500; }
+  @media (max-width: 1280px) {
+    .uc-method-body-col { grid-column: 1 / -1; }
+  }
+
+  /* ───── PROCESS ───── */
+  .uc-process-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-process-title { grid-column: 1 / span 6; grid-row: 2; }
+  .uc-process-intro {
+    grid-column: 7 / span 6;
+    grid-row: 2;
+    align-self: end;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-line);
+  }
+  .uc-process-list {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    border-top: 1px solid var(--color-uc-ink);
+  }
+  .uc-process-item {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    align-items: baseline;
+    column-gap: var(--grid-gutter);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-uc-line);
+  }
+  .uc-process-num { font-size: 0.78rem; }
+  .uc-process-text {
+    font-size: clamp(1.25rem, 2vw, 1.85rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .uc-process-cta { grid-column: 1 / -1; grid-row: 4; margin-top: 1rem; }
+  @media (max-width: 1280px) {
+    .uc-process-title { grid-column: 1 / -1; }
+    .uc-process-intro {
+      grid-column: 1 / -1;
+      padding-left: 0;
+      border-left: 0;
+      margin-top: 1.5rem;
+    }
+  }
+
+  /* ───── FIELD ───── */
+  .uc-field-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-field-title { grid-column: 1 / span 6; grid-row: 2; }
+  .uc-field-intro {
+    grid-column: 7 / span 6;
+    grid-row: 2;
+    align-self: end;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-line);
+  }
+  .uc-field-list { grid-column: 1 / -1; grid-row: 3; }
+  .uc-field-cta { grid-column: 1 / -1; grid-row: 4; margin-top: 1.5rem; }
+  .uc-field-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: baseline;
+  }
+  @media (max-width: 1280px) {
+    .uc-field-title { grid-column: 1 / -1; }
+    .uc-field-intro {
+      grid-column: 1 / -1;
+      padding-left: 0;
+      border-left: 0;
+      margin-top: 1.5rem;
+    }
+  }
+
+  /* ───── PROOF ───── */
+  .uc-proof-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-proof-quote { grid-column: 1 / span 7; grid-row: 2; }
+  .uc-proof-recognition { grid-column: 8 / span 5; grid-row: 2; align-self: start; padding-top: 1rem; }
+  .uc-proof-label { margin: 0 0 1rem; }
+  .uc-proof-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 1rem;
+  }
+  @media (max-width: 1100px) {
+    .uc-proof-quote, .uc-proof-recognition { grid-column: 1 / -1; }
+  }
+
+  /* ───── FOUNDATION ───── */
+  .uc-foundation-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-foundation-title { grid-column: 1 / span 12; grid-row: 2; }
+  .uc-foundation-body { grid-column: 4 / span 8; grid-row: 3; max-width: 65ch; }
+  .uc-foundation-body em { font-style: italic; font-weight: 500; }
+  .uc-foundation-licenses {
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    border-top: 1px solid var(--color-uc-ink);
+    padding-top: 1.25rem;
+  }
+  .uc-foundation-licenses div { display: flex; flex-direction: column; gap: 0.4rem; }
+  .uc-foundation-licenses dt { margin: 0; }
+  .uc-foundation-licenses dd { margin: 0; font-family: var(--font-mono); font-size: 0.95rem; }
+  @media (max-width: 1000px) {
+    .uc-foundation-body { grid-column: 1 / -1; }
+  }
+</style>

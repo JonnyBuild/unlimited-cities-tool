@@ -1,0 +1,329 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedHero from '../components/animations/AnimatedHero.tsx';
+import Reveal from '../components/animations/Reveal.tsx';
+import Stagger from '../components/animations/Stagger.tsx';
+import MagneticLink from '../components/animations/MagneticLink.tsx';
+import DrawRule from '../components/animations/DrawRule.tsx';
+
+const pillars = [
+  {
+    n: '01',
+    title: 'Mission',
+    body:
+      'Make participation a standard, not an option. The foundation equips cities, researchers and citizens to turn consultation into a robust, traceable and contributory method.',
+  },
+  {
+    n: '02',
+    title: 'Model',
+    body:
+      'Open-source by default, neutral by construction. Everything the foundation produces is freely reusable. No citizen data is ever resold.',
+  },
+  {
+    n: '03',
+    title: 'Recognition',
+    body:
+      'Recognised by UN-Habitat, awarded internationally. The method is studied by international institutions and embedded in European research projects.',
+  },
+  {
+    n: '04',
+    title: 'Governance',
+    body:
+      'A permanent team in Geneva, associated researchers across Europe, and a network of contributing cities that keep evolving the tool in the field.',
+  },
+];
+
+const timeline = [
+  { y: '2011', t: 'First prototype', b: 'Public presentation in Paris, Place de la Bastille — Futur en Seine.' },
+  { y: '2014', t: 'Industrialisation', b: 'First municipal deployments across France, Switzerland and Asia.' },
+  { y: '2018', t: 'International recognition', b: 'UN-Habitat and several international prizes recognise the method.' },
+  { y: '2022', t: 'Research programmes', b: 'Integration into European programmes (INTERLACE) and local ones (Multigination Research).' },
+  { y: '2026', t: '30+ territories', b: 'More than 30 territories deployed, 14 documented cases, stable ecosystem.' },
+];
+---
+
+<BaseLayout
+  title="Foundation"
+  description="Open Urbanism Foundation — a non-profit foundation based in Geneva, building open infrastructure for urban participation since 2011."
+  pageNumber="05"
+  pageLabel="Foundation"
+>
+  <section class="uc-shell uc-section-page-hero">
+    <div class="uc-grid">
+      <div class="uc-page-meta">
+        <Reveal client:load immediate delay={1.0}>
+          <p class="uc-mono">N° 05 — Foundation</p>
+          <p class="uc-mono">Geneva / since 2011</p>
+        </Reveal>
+      </div>
+      <div class="uc-page-title">
+        <AnimatedHero
+          client:load
+          className="uc-hero"
+          startDelay={1.05}
+          lines={['Open Urbanism', 'Foundation']}
+          trailing="."
+        />
+      </div>
+      <div class="uc-page-side">
+        <Reveal client:load immediate delay={1.7}>
+          <p class="uc-lead">
+            A non-profit foundation based in Geneva, building open
+            infrastructure for urban participation.
+          </p>
+          <p class="uc-body">
+            Fifteen years of public infrastructure, co-developed
+            with partner cities.
+          </p>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* Pillars */}
+  <section class="uc-shell">
+    <DrawRule client:load />
+    <div class="uc-grid uc-pillars-grid">
+      <div class="uc-pillars-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Four pillars</p>
+        </Reveal>
+      </div>
+      <div class="uc-pillars-list">
+        <Stagger client:load className="uc-pillars-stagger" stagger={0.1}>
+          {pillars.map((p) => (
+            <div class="uc-pillar">
+              <Stagger.Item client:load>
+                <article>
+                  <p class="uc-mono">{p.n}</p>
+                  <h2 class="uc-pillar-title">{p.title}</h2>
+                  <p class="uc-body">{p.body}</p>
+                </article>
+              </Stagger.Item>
+            </div>
+          ))}
+        </Stagger>
+      </div>
+    </div>
+  </section>
+
+  {/* Licenses */}
+  <section class="uc-shell uc-section-tight">
+    <DrawRule client:load />
+    <div class="uc-grid uc-licenses">
+      <div class="uc-licenses-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Licenses</p>
+        </Reveal>
+      </div>
+      <div class="uc-licenses-content">
+        <Reveal client:load delay={0.1}>
+          <h2 class="uc-h1 uc-licenses-title">
+            Free, modifiable, shareable<span class="uc-bold">.</span><br />
+            Forever.
+          </h2>
+          <dl class="uc-licenses-dl">
+            <div>
+              <dt class="uc-mono">Process</dt>
+              <dd>CC BY-SA 4.0</dd>
+            </div>
+            <div>
+              <dt class="uc-mono">Platform</dt>
+              <dd>GNU AGPLv3</dd>
+            </div>
+          </dl>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* Timeline */}
+  <section class="uc-shell uc-section-tight">
+    <DrawRule client:load />
+    <div class="uc-grid uc-timeline-head">
+      <div class="uc-timeline-meta">
+        <Reveal client:load>
+          <p class="uc-mono">History</p>
+        </Reveal>
+      </div>
+      <div class="uc-timeline-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1">Fifteen years of public infrastructure<span class="uc-bold">.</span></h2>
+        </Reveal>
+      </div>
+    </div>
+    <ol class="uc-timeline">
+      <Stagger client:load className="uc-timeline-stagger" stagger={0.08}>
+        {timeline.map((e) => (
+          <li class="uc-timeline-item">
+            <Stagger.Item client:load>
+              <div class="uc-grid uc-timeline-row">
+                <div class="uc-timeline-year-col">
+                  <span class="uc-timeline-year">{e.y}</span>
+                </div>
+                <div class="uc-timeline-title-col">
+                  <h3 class="uc-timeline-title-text">{e.t}</h3>
+                </div>
+                <div class="uc-timeline-body-col">
+                  <p class="uc-body">{e.b}</p>
+                </div>
+              </div>
+            </Stagger.Item>
+          </li>
+        ))}
+      </Stagger>
+    </ol>
+  </section>
+
+  {/* CTA */}
+  <section class="uc-shell uc-section-tight">
+    <DrawRule client:load />
+    <div class="uc-grid uc-foundation-cta-grid">
+      <div class="uc-foundation-cta-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Contact</p>
+        </Reveal>
+      </div>
+      <div class="uc-foundation-cta-content">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1 uc-foundation-cta-title">
+            Work with<br />
+            the foundation<span class="uc-bold">.</span>
+          </h2>
+          <p class="uc-body uc-foundation-cta-body">
+            For a city, a research programme, an editorial partnership,
+            or simply a question.
+          </p>
+          <MagneticLink
+            client:load
+            href="mailto:contact@openurbanism.ch"
+            className="uc-link-arrow uc-foundation-cta-link"
+          >
+            contact@openurbanism.ch
+          </MagneticLink>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .uc-section-page-hero {
+    padding-top: clamp(4rem, 7vw, 7rem);
+    padding-bottom: clamp(5rem, 8vw, 8rem);
+  }
+  .uc-page-meta { grid-column: 1 / span 3; grid-row: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+  .uc-page-title { grid-column: 1 / span 12; grid-row: 2; margin-top: 1.5rem; }
+  .uc-page-side {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-ink);
+  }
+  .uc-page-side .uc-body { color: var(--color-uc-grey); margin-top: 1rem; }
+  .uc-page-side .uc-lead, .uc-page-side .uc-body { max-width: 50ch; }
+  @media (max-width: 1280px) {
+    .uc-page-side { grid-column: 1 / -1; padding-left: 0; border-left: 0; margin-top: 2.5rem; }
+    .uc-page-side .uc-lead, .uc-page-side .uc-body { max-width: 60ch; }
+  }
+
+  /* Pillars */
+  .uc-pillars-grid { padding-top: 4rem; padding-bottom: 2rem; row-gap: 2rem; }
+  .uc-pillars-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-pillars-list { grid-column: 4 / span 9; grid-row: 1; min-width: 0; }
+  :global(.uc-pillars-stagger) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 2.5rem;
+  }
+  .uc-pillar { padding-top: 1rem; min-width: 0; }
+  .uc-pillar .uc-mono { margin: 0 0 0.6rem; }
+  .uc-pillar-title {
+    font-size: clamp(1.4rem, 2vw, 1.85rem);
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+  @media (max-width: 1000px) {
+    .uc-pillars-meta, .uc-pillars-list { grid-column: 1 / -1; grid-row: auto; }
+  }
+  @media (max-width: 760px) {
+    :global(.uc-pillars-stagger) { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  /* Licenses */
+  .uc-licenses { padding-top: 4rem; padding-bottom: 4rem; }
+  .uc-licenses-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-licenses-content { grid-column: 4 / span 8; grid-row: 1; }
+  .uc-licenses-title { margin-bottom: 2rem; }
+  .uc-licenses-dl {
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    border-top: 1px solid var(--color-uc-ink);
+    padding-top: 1.25rem;
+    max-width: 480px;
+  }
+  .uc-licenses-dl div { display: flex; flex-direction: column; gap: 0.4rem; }
+  .uc-licenses-dl dt { margin: 0; }
+  .uc-licenses-dl dd { margin: 0; font-family: var(--font-mono); font-size: 1rem; }
+  @media (max-width: 1000px) {
+    .uc-licenses-meta, .uc-licenses-content { grid-column: 1 / -1; grid-row: auto; }
+  }
+
+  /* Timeline */
+  .uc-timeline-head { padding-top: 4rem; padding-bottom: 2rem; }
+  .uc-timeline-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-timeline-title { grid-column: 4 / span 9; grid-row: 1; }
+
+  .uc-timeline {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    border-top: 1px solid var(--color-uc-ink);
+  }
+  .uc-timeline-item {
+    border-bottom: 1px solid var(--color-uc-line);
+    padding: 1.75rem 0;
+  }
+  .uc-timeline-row { align-items: baseline; }
+  .uc-timeline-year-col { grid-column: 1 / span 2; }
+  .uc-timeline-year {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    font-feature-settings: "tnum";
+    color: var(--color-uc-ink);
+    letter-spacing: 0;
+  }
+  .uc-timeline-title-col { grid-column: 3 / span 4; }
+  .uc-timeline-title-text {
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .uc-timeline-body-col { grid-column: 7 / span 6; }
+  .uc-timeline-body-col .uc-body { margin: 0; color: var(--color-uc-grey); max-width: 65ch; }
+
+  @media (max-width: 1000px) {
+    .uc-timeline-meta, .uc-timeline-title { grid-column: 1 / -1; grid-row: auto; }
+    .uc-timeline-year-col { grid-column: 1 / span 2; }
+    .uc-timeline-title-col { grid-column: 3 / span 10; }
+    .uc-timeline-body-col { grid-column: 3 / span 10; padding-top: 0.5rem; }
+  }
+
+  /* CTA */
+  .uc-foundation-cta-grid { padding-top: 4rem; padding-bottom: 1rem; }
+  .uc-foundation-cta-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-foundation-cta-content { grid-column: 4 / span 8; grid-row: 1; }
+  .uc-foundation-cta-title { margin-bottom: 1.5rem; }
+  .uc-foundation-cta-body { margin-bottom: 2rem; max-width: 56ch; }
+  @media (max-width: 1000px) {
+    .uc-foundation-cta-meta, .uc-foundation-cta-content { grid-column: 1 / -1; grid-row: auto; }
+  }
+</style>

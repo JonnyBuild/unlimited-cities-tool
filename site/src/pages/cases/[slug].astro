@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { cases } from '../../data/cases';
+import AnimatedHero from '../../components/animations/AnimatedHero.tsx';
+import Reveal from '../../components/animations/Reveal.tsx';
+import Stagger from '../../components/animations/Stagger.tsx';
+import MagneticLink from '../../components/animations/MagneticLink.tsx';
+import DrawRule from '../../components/animations/DrawRule.tsx';
+import { link } from '../../utils/link';
+
+export function getStaticPaths() {
+  return cases.map((c) => ({ params: { slug: c.slug }, props: { caseStudy: c } }));
+}
+
+const { caseStudy } = Astro.props;
+const { city, country, theme, oneLiner, chapter, commissioner } = caseStudy;
+
+const idx = cases.findIndex((c) => c.slug === caseStudy.slug);
+const num = String(idx + 1).padStart(2, '0');
+const prev = idx > 0 ? cases[idx - 1] : cases[cases.length - 1];
+const next = idx < cases.length - 1 ? cases[idx + 1] : cases[0];
+
+const chapterLabel = chapter === 'city' ? 'City projects' : 'Research & Evolution';
+const chapterCode = chapter === 'city' ? 'A' : 'B';
+const indexHref = link(chapter === 'city' ? '/cases' : '/research');
+const indexLabel = chapter === 'city' ? 'All city projects' : 'All research & evolution';
+---
+
+<BaseLayout
+  title={`${city} — ${theme}`}
+  description={oneLiner}
+  pageNumber={num}
+  pageLabel="Case study"
+>
+  <article class="uc-case">
+    {/* Hero */}
+    <section class="uc-shell uc-case-hero">
+      <div class="uc-grid">
+        <div class="uc-case-hero-meta">
+          <Reveal client:load immediate delay={1.0}>
+            <p class="uc-mono">N° {num} — Case study</p>
+            <p class="uc-mono">Chapter {chapterCode} — {chapterLabel}</p>
+          </Reveal>
+        </div>
+        <div class="uc-case-hero-title">
+          <AnimatedHero
+            client:load
+            className="uc-hero"
+            startDelay={1.05}
+            lines={[city]}
+            trailing="."
+          />
+          <div class="uc-case-hero-country">
+            <Reveal client:load immediate delay={1.5}>
+              <span>{country}</span>
+            </Reveal>
+          </div>
+        </div>
+        <div class="uc-case-hero-side">
+          <Reveal client:load immediate delay={1.7}>
+            <p class="uc-lead">{oneLiner}</p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    {/* Metadata band */}
+    <section class="uc-shell">
+      <DrawRule client:load />
+      <div class="uc-grid uc-case-meta">
+        <Stagger client:load className="uc-case-meta-stagger" stagger={0.06}>
+          <div class="uc-case-meta-item">
+            <Stagger.Item client:load>
+              <p class="uc-mono">Country</p>
+              <p class="uc-case-meta-value">{country}</p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-case-meta-item">
+            <Stagger.Item client:load>
+              <p class="uc-mono">City</p>
+              <p class="uc-case-meta-value">{city}</p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-case-meta-item">
+            <Stagger.Item client:load>
+              <p class="uc-mono">Theme</p>
+              <p class="uc-case-meta-value">{theme}</p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-case-meta-item">
+            <Stagger.Item client:load>
+              <p class="uc-mono">Commissioner</p>
+              <p class="uc-case-meta-value">{commissioner ?? '—'}</p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-case-meta-item">
+            <Stagger.Item client:load>
+              <p class="uc-mono">Chapter</p>
+              <p class="uc-case-meta-value">{chapterLabel}</p>
+            </Stagger.Item>
+          </div>
+        </Stagger>
+      </div>
+    </section>
+
+    {/* Body */}
+    <section class="uc-shell uc-case-body-section">
+      <DrawRule client:load />
+      <div class="uc-grid uc-case-body-grid">
+        <div class="uc-case-body-meta">
+          <Reveal client:load>
+            <p class="uc-mono">Notice</p>
+            <p class="uc-case-status">Case sheet under preparation</p>
+          </Reveal>
+        </div>
+
+        <div class="uc-case-body-content">
+          <Reveal client:load delay={0.05}>
+            <p class="uc-lead uc-case-lead">
+              This page uses minimal fields. The unified template for the
+              14 cases is awaiting validation.
+            </p>
+
+            <div class="uc-case-section">
+              <h2 class="uc-h2 uc-case-h2">Context</h2>
+              <p class="uc-body">
+                {oneLiner} This sheet will detail the territorial context,
+                the public commission and the issues raised by inhabitants.
+              </p>
+            </div>
+
+            <div class="uc-case-section">
+              <h2 class="uc-h2 uc-case-h2">Process applied</h2>
+              <p class="uc-body">
+                Phases activated, total duration, sites covered, mediation deployed.
+                Refer to <a href={link('/process')} class="uc-link">the seven-phase process</a>.
+              </p>
+            </div>
+
+            <div class="uc-case-section">
+              <h2 class="uc-h2 uc-case-h2">Outcomes</h2>
+              <p class="uc-body">
+                Contributions received, scenarios retained, decisions documented,
+                possible continuation of the project after the restitution.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    {/* Navigation prev/next */}
+    <section class="uc-shell uc-case-nav-section">
+      <DrawRule client:load />
+      <nav class="uc-grid uc-case-nav" aria-label="Case studies — navigation">
+        <Stagger client:load className="uc-case-nav-stagger" stagger={0.08}>
+          <div class="uc-case-nav-cell">
+            <Stagger.Item client:load>
+              <MagneticLink client:load href={link(`/cases/${prev.slug}`)} className="uc-case-nav-prev">
+                <p class="uc-mono">← Previous</p>
+                <p class="uc-case-nav-city">{prev.city}</p>
+                <p class="uc-mono uc-case-nav-country">{prev.country}</p>
+              </MagneticLink>
+            </Stagger.Item>
+          </div>
+          <div class="uc-case-nav-cell uc-case-nav-cell-mid">
+            <Stagger.Item client:load>
+              <MagneticLink client:load href={indexHref} className="uc-case-nav-back">
+                <p class="uc-mono">Index</p>
+                <p class="uc-case-nav-city">{indexLabel}</p>
+              </MagneticLink>
+            </Stagger.Item>
+          </div>
+          <div class="uc-case-nav-cell uc-case-nav-cell-end">
+            <Stagger.Item client:load>
+              <MagneticLink client:load href={link(`/cases/${next.slug}`)} className="uc-case-nav-next">
+                <p class="uc-mono">Next →</p>
+                <p class="uc-case-nav-city">{next.city}</p>
+                <p class="uc-mono uc-case-nav-country">{next.country}</p>
+              </MagneticLink>
+            </Stagger.Item>
+          </div>
+        </Stagger>
+      </nav>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .uc-case-hero {
+    padding-top: clamp(4rem, 7vw, 7rem);
+    padding-bottom: clamp(4rem, 7vw, 7rem);
+  }
+  .uc-case-hero-meta {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .uc-case-hero-title {
+    grid-column: 1 / span 12;
+    grid-row: 2;
+    margin-top: 1.5rem;
+    min-width: 0;
+  }
+  .uc-case-hero-country {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-uc-grey);
+  }
+  .uc-case-hero-side {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-ink);
+  }
+  .uc-case-hero-side .uc-lead { max-width: 56ch; }
+  @media (max-width: 1280px) {
+    .uc-case-hero-side { grid-column: 1 / -1; padding-left: 0; border-left: 0; margin-top: 2.5rem; }
+    .uc-case-hero-side .uc-lead { max-width: 60ch; }
+  }
+
+  .uc-case-meta {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-uc-line);
+  }
+  :global(.uc-case-meta-stagger) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+  }
+  .uc-case-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+  .uc-case-meta-value {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+  @media (max-width: 1100px) {
+    :global(.uc-case-meta-stagger) { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 700px) {
+    :global(.uc-case-meta-stagger) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .uc-case-body-section {
+    padding-top: var(--space-section-tight);
+  }
+  .uc-case-body-grid {
+    padding-top: 3rem;
+    row-gap: 2rem;
+  }
+  .uc-case-body-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-case-body-meta .uc-mono { margin: 0 0 0.6rem; }
+  .uc-case-status {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-uc-grey);
+    font-style: italic;
+  }
+  .uc-case-body-content { grid-column: 4 / span 8; grid-row: 1; max-width: 65ch; }
+  .uc-case-lead {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-uc-line);
+    color: var(--color-uc-grey);
+  }
+  .uc-case-section { margin-bottom: 3rem; }
+  .uc-case-h2 { margin-bottom: 1rem; }
+  @media (max-width: 1000px) {
+    .uc-case-body-meta, .uc-case-body-content { grid-column: 1 / -1; grid-row: auto; }
+  }
+
+  .uc-case-nav-section {
+    padding-top: var(--space-section-tight);
+  }
+  .uc-case-nav {
+    padding-top: 2.5rem;
+    padding-bottom: 1rem;
+  }
+  :global(.uc-case-nav-stagger) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+  .uc-case-nav-cell { display: flex; }
+  .uc-case-nav-cell-mid { justify-content: center; }
+  .uc-case-nav-cell-end { justify-content: flex-end; }
+  .uc-case-nav-prev,
+  .uc-case-nav-back,
+  .uc-case-nav-next {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-uc-ink);
+    transition: opacity 0.2s;
+  }
+  .uc-case-nav-prev:hover,
+  .uc-case-nav-back:hover,
+  .uc-case-nav-next:hover {
+    opacity: 0.55;
+  }
+  .uc-case-nav-back { text-align: center; }
+  .uc-case-nav-next { text-align: right; align-items: flex-end; }
+  .uc-case-nav-city {
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .uc-case-nav-country { margin: 0; }
+
+  @media (max-width: 760px) {
+    :global(.uc-case-nav-stagger) { grid-template-columns: 1fr; }
+    .uc-case-nav-cell, .uc-case-nav-cell-mid, .uc-case-nav-cell-end { justify-content: flex-start; }
+    .uc-case-nav-prev, .uc-case-nav-back, .uc-case-nav-next {
+      text-align: left;
+      align-items: flex-start;
+    }
+  }
+</style>

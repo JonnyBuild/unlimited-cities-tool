@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageTransition from '../components/animations/PageTransition.tsx';
+import { link } from '../utils/link';
+
+interface Props {
+  title: string;
+  description?: string;
+  pageNumber?: string;
+  pageLabel?: string;
+}
+
+const {
+  title,
+  description,
+  pageNumber = '00',
+  pageLabel = 'Home',
+} = Astro.props;
+const siteName = 'Unlimited Cities';
+const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+const desc =
+  description ??
+  'The free, open-source tool that turns citizen participation into urban transitions. Open Urbanism Foundation, Geneva.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={link('/favicon.svg')} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a href="#main" class="uc-skip">Skip to content</a>
+
+    <PageTransition pageNumber={pageNumber} pageLabel={pageLabel} client:load />
+
+    <Header />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <style>
+      .uc-skip { position: absolute; left: -9999px; top: 0; }
+      .uc-skip:focus {
+        left: 1rem;
+        top: 1rem;
+        background: var(--color-uc-ink);
+        color: var(--color-uc-paper);
+        padding: 0.6rem 1rem;
+        z-index: 100;
+      }
+    </style>
+  </body>
+</html>

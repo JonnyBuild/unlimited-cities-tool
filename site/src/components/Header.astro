@@ -1,0 +1,108 @@
+---
+import { link } from '../utils/link';
+
+const path = Astro.url.pathname;
+
+const navItems = [
+  { href: link('/process'), label: 'Process', n: '02' },
+  { href: link('/cases'), label: 'City projects', n: '03' },
+  { href: link('/research'), label: 'Research', n: '04' },
+  { href: link('/foundation'), label: 'Foundation', n: '05' },
+];
+---
+
+<header class="uc-header">
+  <div class="uc-shell uc-header-inner">
+    <a href={link('/')} class="uc-header-brand" aria-label="Unlimited Cities — home">
+      <span class="uc-mono uc-header-mono">N° 01</span>
+      <span class="uc-header-name">Unlimited&nbsp;Cities</span>
+    </a>
+
+    <nav class="uc-header-nav" aria-label="Primary">
+      {
+        navItems.map((item) => {
+          const active = path === item.href || path.startsWith(item.href + '/');
+          return (
+            <a href={item.href} class:list={['uc-header-link', { active }]}>
+              <span class="uc-mono uc-header-link-num">N° {item.n}</span>
+              <span class="uc-header-link-label">{item.label}</span>
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+  <hr class="uc-rule" />
+</header>
+
+<style>
+  .uc-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--color-uc-paper) 94%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .uc-header-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .uc-header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    line-height: 1;
+  }
+
+  .uc-header-mono { font-size: 0.7rem; }
+
+  .uc-header-name {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-uc-ink);
+  }
+
+  .uc-header-nav {
+    display: flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: flex-end;
+  }
+
+  .uc-header-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    line-height: 1;
+    padding: 0.25rem 0;
+    color: var(--color-uc-ink);
+    transition: opacity 0.2s;
+  }
+
+  .uc-header-link:hover { opacity: 0.55; }
+
+  .uc-header-link-num { font-size: 0.7rem; }
+
+  .uc-header-link-label {
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .uc-header-link.active .uc-header-link-label { font-weight: 600; }
+
+  @media (max-width: 760px) {
+    .uc-header-inner { gap: 1rem; }
+    .uc-header-nav { gap: 1.25rem; }
+    .uc-header-link-label { font-size: 0.85rem; }
+    .uc-header-link-num { display: none; }
+    .uc-header-mono { display: none; }
+  }
+</style>

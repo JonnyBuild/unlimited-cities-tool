@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { cityCases } from '../data/cases';
+import AnimatedHero from '../components/animations/AnimatedHero.tsx';
+import Reveal from '../components/animations/Reveal.tsx';
+import Stagger from '../components/animations/Stagger.tsx';
+import Counter from '../components/animations/Counter.tsx';
+import DrawRule from '../components/animations/DrawRule.tsx';
+import { link } from '../utils/link';
+---
+
+<BaseLayout
+  title="City projects"
+  description="Ten city projects led by a city or territory using the Unlimited Cities tool."
+  pageNumber="03"
+  pageLabel="City projects"
+>
+  <section class="uc-shell uc-section-page-hero">
+    <div class="uc-grid">
+      <div class="uc-page-meta">
+        <Reveal client:load immediate delay={1.0}>
+          <p class="uc-mono">N° 03 — City projects</p>
+          <p class="uc-mono">10 cases / 4 continents</p>
+        </Reveal>
+      </div>
+      <div class="uc-page-title">
+        <AnimatedHero
+          client:load
+          className="uc-hero"
+          startDelay={1.05}
+          lines={['Ten city projects,', 'across four continents']}
+          trailing="."
+        />
+      </div>
+      <div class="uc-page-side">
+        <Reveal client:load immediate delay={1.7}>
+          <p class="uc-lead">
+            Real urban-transition projects led by a city or a territory.
+            From a Genevan village to a Taipei district — same tool,
+            different territories.
+          </p>
+          <p class="uc-body">
+            Looking for the research-driven evolutions of the tool?
+            <a href={link('/research')} class="uc-link">See Research &amp; Evolution</a>.
+          </p>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  {/* Stats band */}
+  <section class="uc-shell uc-cases-index-bar">
+    <DrawRule client:load />
+    <div class="uc-grid uc-cases-index-grid">
+      <div class="uc-cases-index-meta">
+        <Reveal client:load>
+          <p class="uc-mono">Index</p>
+        </Reveal>
+      </div>
+      <div class="uc-cases-index-stats">
+        <Stagger client:load className="uc-cases-stats-stagger" stagger={0.1}>
+          <div class="uc-cases-stat-wrap">
+            <Stagger.Item client:load>
+              <p class="uc-cases-stat">
+                <span class="uc-cases-stat-num"><Counter client:load value="10" /></span>
+                <span class="uc-mono">City projects</span>
+              </p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-cases-stat-wrap">
+            <Stagger.Item client:load>
+              <p class="uc-cases-stat">
+                <span class="uc-cases-stat-num"><Counter client:load value="04" /></span>
+                <span class="uc-mono">Continents</span>
+              </p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-cases-stat-wrap">
+            <Stagger.Item client:load>
+              <p class="uc-cases-stat">
+                <span class="uc-cases-stat-num"><Counter client:load value="1 400" /></span>
+                <span class="uc-mono">Max participants</span>
+              </p>
+            </Stagger.Item>
+          </div>
+          <div class="uc-cases-stat-wrap">
+            <Stagger.Item client:load>
+              <p class="uc-cases-stat">
+                <span class="uc-cases-stat-num"><Counter client:load value="30+" /></span>
+                <span class="uc-mono">Total deployments</span>
+              </p>
+            </Stagger.Item>
+          </div>
+        </Stagger>
+      </div>
+    </div>
+  </section>
+
+  {/* Listing */}
+  <section class="uc-shell uc-cases-listing-section">
+    <DrawRule client:load />
+    <div class="uc-grid uc-chapter-grid">
+      <div class="uc-chapter-meta">
+        <Reveal client:load>
+          <p class="uc-mono">All ten — Cities & territories</p>
+        </Reveal>
+      </div>
+      <div class="uc-chapter-title">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h1">A different city, every time<span class="uc-bold">.</span></h2>
+          <p class="uc-chapter-sub">
+            Each project below was shaped by the territory it served — its
+            scale, its question, its public moments.
+          </p>
+        </Reveal>
+      </div>
+    </div>
+    <div class="uc-cases-listing">
+      <Stagger client:load className="uc-cases-stagger" stagger={0.06}>
+        {cityCases.map((c, i) => (
+          <Stagger.Item client:load>
+            <CaseCard caseStudy={c} index={i} />
+          </Stagger.Item>
+        ))}
+      </Stagger>
+    </div>
+  </section>
+
+  {/* Crosslink */}
+  <section class="uc-shell uc-section-tight">
+    <DrawRule client:load />
+    <div class="uc-grid uc-cases-crosslink">
+      <div class="uc-cases-crosslink-meta">
+        <Reveal client:load>
+          <p class="uc-mono">See also</p>
+        </Reveal>
+      </div>
+      <div class="uc-cases-crosslink-content">
+        <Reveal client:load delay={0.05}>
+          <h2 class="uc-h2 uc-cases-crosslink-title">
+            How does the tool itself evolve<span class="uc-bold">?</span>
+          </h2>
+          <p class="uc-body">
+            Four research projects where Unlimited Cities was studied,
+            stretched, or rebuilt — and where new platform features were born.
+          </p>
+          <a href={link('/research')} class="uc-link-arrow">See Research &amp; Evolution</a>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .uc-section-page-hero {
+    padding-top: clamp(4rem, 7vw, 7rem);
+    padding-bottom: clamp(4rem, 7vw, 7rem);
+  }
+  .uc-page-meta { grid-column: 1 / span 3; grid-row: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+  .uc-page-title { grid-column: 1 / span 12; grid-row: 2; margin-top: 1.5rem; }
+  .uc-page-side {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-ink);
+  }
+  .uc-page-side .uc-body { color: var(--color-uc-grey); margin-top: 1rem; }
+  .uc-page-side .uc-lead, .uc-page-side .uc-body { max-width: 50ch; }
+  @media (max-width: 1280px) {
+    .uc-page-side { grid-column: 1 / -1; padding-left: 0; border-left: 0; margin-top: 2.5rem; }
+    .uc-page-side .uc-lead, .uc-page-side .uc-body { max-width: 60ch; }
+  }
+
+  .uc-cases-index-bar { padding-top: 0; padding-bottom: 2.5rem; }
+  .uc-cases-index-grid { padding-top: 1.5rem; }
+  .uc-cases-index-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-cases-index-stats { grid-column: 4 / span 9; grid-row: 1; }
+  :global(.uc-cases-stats-stagger) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .uc-cases-stat-wrap { min-width: 0; }
+  .uc-cases-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+  }
+  .uc-cases-stat-num {
+    font-family: var(--font-sans);
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--color-uc-ink);
+    white-space: nowrap;
+  }
+  @media (max-width: 1000px) {
+    .uc-cases-index-meta, .uc-cases-index-stats { grid-column: 1 / -1; }
+    :global(.uc-cases-stats-stagger) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .uc-cases-listing-section { padding-top: var(--space-section-tight); }
+  .uc-chapter-grid { padding-top: 4rem; padding-bottom: 3rem; row-gap: 1.5rem; }
+  .uc-chapter-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-chapter-title { grid-column: 4 / span 9; grid-row: 1; min-width: 0; }
+  .uc-chapter-sub {
+    margin: 1rem 0 0;
+    color: var(--color-uc-grey);
+    font-size: 1.05rem;
+    max-width: 64ch;
+    line-height: 1.5;
+  }
+  @media (max-width: 1000px) {
+    .uc-chapter-meta, .uc-chapter-title { grid-column: 1 / -1; grid-row: auto; }
+  }
+
+  .uc-cases-listing { margin-top: 1rem; }
+
+  /* Crosslink */
+  .uc-cases-crosslink { padding-top: 4rem; padding-bottom: 1rem; }
+  .uc-cases-crosslink-meta { grid-column: 1 / span 3; grid-row: 1; }
+  .uc-cases-crosslink-content { grid-column: 4 / span 8; grid-row: 1; max-width: 65ch; }
+  .uc-cases-crosslink-title { margin-bottom: 1rem; }
+  @media (max-width: 1000px) {
+    .uc-cases-crosslink-meta, .uc-cases-crosslink-content { grid-column: 1 / -1; grid-row: auto; }
+  }
+</style>

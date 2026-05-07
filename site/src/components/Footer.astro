@@ -1,0 +1,133 @@
+---
+/* Open Urbanism Foundation — name always in English (CLAUDE.md §2.3). */
+import { link } from '../utils/link';
+---
+
+<footer class="uc-footer">
+  <hr class="uc-rule" />
+
+  <div class="uc-shell uc-footer-top">
+    <div class="uc-grid uc-footer-grid">
+      <section class="uc-footer-col" style="grid-column: span 4;">
+        <p class="uc-mono">Index</p>
+        <ul class="uc-footer-list">
+          <li><a href={link('/')} class="uc-link">Home</a></li>
+          <li><a href={link('/process')} class="uc-link">Process</a></li>
+          <li><a href={link('/cases')} class="uc-link">City projects</a></li>
+          <li><a href={link('/research')} class="uc-link">Research &amp; Evolution</a></li>
+          <li><a href={link('/foundation')} class="uc-link">Foundation</a></li>
+        </ul>
+      </section>
+
+      <section class="uc-footer-col" style="grid-column: span 4;">
+        <p class="uc-mono">Contact</p>
+        <p class="uc-footer-line">
+          <a href="mailto:contact@openurbanism.ch" class="uc-link">contact@openurbanism.ch</a>
+        </p>
+        <p class="uc-footer-line uc-footer-muted">
+          Open Urbanism Foundation<br />
+          Geneva, Switzerland
+        </p>
+        <p class="uc-footer-line">
+          <a href="https://github.com/openurbanism" class="uc-link">Source code</a>
+        </p>
+      </section>
+
+      <section class="uc-footer-col" style="grid-column: span 4;">
+        <p class="uc-mono">Newsletter</p>
+        <form class="uc-footer-form" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="email@example.com" aria-label="email" />
+          <button type="submit" class="uc-link-arrow uc-footer-submit">Subscribe</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <hr class="uc-rule-soft" />
+
+  <div class="uc-shell uc-footer-bottom">
+    <div class="uc-footer-bottom-row">
+      <ul class="uc-footer-legal">
+        <li><a href="#" class="uc-mono uc-footer-legal-link">Legal</a></li>
+        <li><a href="#" class="uc-mono uc-footer-legal-link">Credits</a></li>
+        <li><a href="#" class="uc-mono uc-footer-legal-link">Press</a></li>
+      </ul>
+
+      <ul class="uc-footer-langs" aria-label="Language">
+        <li><span class="uc-mono uc-footer-lang active">EN</span></li>
+        <li><span class="uc-mono uc-footer-lang">FR</span></li>
+        <li><span class="uc-mono uc-footer-lang">DE</span></li>
+        <li><span class="uc-mono uc-footer-lang">IT</span></li>
+        <li><span class="uc-mono uc-footer-lang">ES</span></li>
+      </ul>
+
+      <p class="uc-mono uc-footer-copy">© 2011–2026 Open Urbanism Foundation</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .uc-footer {
+    margin-top: var(--space-section);
+    padding-top: 0;
+    background: var(--color-uc-paper);
+    color: var(--color-uc-ink);
+  }
+
+  .uc-footer-top { padding-top: 4rem; padding-bottom: 4rem; }
+
+  .uc-footer-col > .uc-mono { margin: 0 0 1.5rem; }
+
+  .uc-footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-size: 1rem;
+  }
+
+  .uc-footer-line { margin: 0 0 0.75rem; line-height: 1.55; }
+  .uc-footer-muted { color: var(--color-uc-grey); }
+
+  .uc-footer-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+  .uc-footer-form input { flex: 1; }
+  .uc-footer-submit { flex-shrink: 0; padding-bottom: 4px; }
+
+  .uc-footer-bottom { padding-top: 1.5rem; padding-bottom: 2rem; }
+  .uc-footer-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .uc-footer-legal,
+  .uc-footer-langs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .uc-footer-legal-link { transition: color 0.2s; }
+  .uc-footer-legal-link:hover { color: var(--color-uc-ink); }
+
+  .uc-footer-lang { color: var(--color-uc-line); font-size: 0.7rem; }
+  .uc-footer-lang.active { color: var(--color-uc-ink); }
+
+  .uc-footer-copy { font-size: 0.7rem; }
+
+  @media (max-width: 760px) {
+    .uc-footer-grid { row-gap: 2.5rem; }
+    .uc-footer-col { grid-column: span 6 !important; }
+    .uc-footer-bottom-row { flex-direction: column; align-items: flex-start; }
+  }
+</style>

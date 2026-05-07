@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedHero from '../components/animations/AnimatedHero.tsx';
+import Reveal from '../components/animations/Reveal.tsx';
+import Stagger from '../components/animations/Stagger.tsx';
+import DrawRule from '../components/animations/DrawRule.tsx';
+
+const phases = [
+  {
+    n: '01',
+    t: 'Get to know the process and the platform',
+    s: 'Understand by example before you start.',
+    body:
+      'Before launching a project, soak in similar cases: see how other cities framed their question, ran their workshops, deployed their mediation. This phase only takes some reading time.',
+    out: ['Shared understanding', 'First roadmap'],
+  },
+  {
+    n: '02',
+    t: 'Define a process suited to your territory',
+    s: 'Pick sites, identify partners, set a timeline.',
+    body:
+      'You compose a tailored process: how many phases, which sites, which public moments, which teams. Pace and scope are set here — not before.',
+    out: ['Project specification', 'Committed schedule'],
+  },
+  {
+    n: '03',
+    t: 'Run contributory workshops',
+    s: 'Turn participants into co-designers.',
+    body:
+      'Physical workshops where inhabitants compose their collages. This is where the tool fully makes sense: participants don’t answer a questionnaire — they propose.',
+    out: ['First collages', 'Initial debate material'],
+  },
+  {
+    n: '04',
+    t: 'Prepare the digital platform',
+    s: 'Configure modules, maps, scenarios.',
+    body:
+      'Platform configured with the chosen modules, cartographic backgrounds imported, scenarios prepared. Tech in service of the editorial — not the other way around.',
+    out: ['Ready platform', 'Trained mediators'],
+  },
+  {
+    n: '05',
+    t: 'Run digital mediation in public space',
+    s: 'Meet inhabitants where they live.',
+    body:
+      'Tablets in hand, mediators go out to people — markets, train stations, parks. We capture voices that no meeting would ever reach.',
+    out: ['Hundreds to thousands of contributions', 'Real representativeness'],
+  },
+  {
+    n: '06',
+    t: 'Analyse contributions',
+    s: 'Quantitative, qualitative, fully transparent.',
+    body:
+      'Analysis combines vote weight and the richness of verbatims. Everything is traceable: each conclusion can be traced back to its source contributions.',
+    out: ['Analysis report', 'Usable verbatims'],
+  },
+  {
+    n: '07',
+    t: 'Restitution & sharing',
+    s: 'Public event, exhibit the collages, dialogue with the city.',
+    body:
+      'We give back what we received: public exhibition of the collages, direct exchange between officials and contributors. The project isn’t closed — it truly begins.',
+    out: ['Documented decisions', 'Trust built'],
+  },
+];
+---
+
+<BaseLayout
+  title="The process"
+  description="The Unlimited Cities process in seven phases, from framing to public restitution."
+  pageNumber="02"
+  pageLabel="Process"
+>
+  <section class="uc-shell uc-section-page-hero">
+    <div class="uc-grid">
+      <div class="uc-page-meta">
+        <Reveal client:load immediate delay={1.0}>
+          <p class="uc-mono">N° 02 — Process</p>
+          <p class="uc-mono">Seven phases / 2026</p>
+        </Reveal>
+      </div>
+      <div class="uc-page-title">
+        <AnimatedHero
+          client:load
+          className="uc-hero"
+          startDelay={1.05}
+          lines={['The process,', 'phase by phase']}
+          trailing="."
+        />
+      </div>
+      <div class="uc-page-side">
+        <Reveal client:load immediate delay={1.7}>
+          <p class="uc-lead">
+            Seven phases that emerged in the field. Each phase is a milestone —
+            not a checkpoint.
+          </p>
+          <p class="uc-body">
+            Adapt the order, repeat where needed, skip what doesn’t apply
+            to your territory.
+          </p>
+        </Reveal>
+      </div>
+    </div>
+  </section>
+
+  <section class="uc-shell uc-section-tight">
+    <DrawRule client:load />
+    <ol class="uc-phases">
+      <Stagger client:load className="uc-phases-stagger" stagger={0.08}>
+        {phases.map((p) => (
+          <li class="uc-phase" id={`phase-${p.n}`}>
+            <Stagger.Item client:load>
+              <div class="uc-phase-grid uc-grid">
+                <div class="uc-phase-num-col">
+                  <p class="uc-mono">Phase</p>
+                  <p class="uc-phase-num">{p.n}</p>
+                </div>
+
+                <div class="uc-phase-title-col">
+                  <h2 class="uc-phase-title">{p.t}</h2>
+                  <p class="uc-phase-sub">{p.s}</p>
+                </div>
+
+                <div class="uc-phase-body-col">
+                  <p class="uc-body">{p.body}</p>
+                </div>
+
+                <div class="uc-phase-out-col">
+                  <p class="uc-mono">Outputs</p>
+                  <ul class="uc-phase-out-list">
+                    {p.out.map((o) => <li>{o}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </Stagger.Item>
+          </li>
+        ))}
+      </Stagger>
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  .uc-section-page-hero {
+    padding-top: clamp(4rem, 7vw, 7rem);
+    padding-bottom: clamp(5rem, 8vw, 8rem);
+  }
+  .uc-page-meta {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .uc-page-title {
+    grid-column: 1 / span 12;
+    grid-row: 2;
+    margin-top: 1.5rem;
+  }
+  .uc-page-side {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-uc-ink);
+  }
+  .uc-page-side .uc-body { color: var(--color-uc-grey); margin-top: 1rem; }
+  .uc-page-side .uc-lead { max-width: 50ch; }
+  .uc-page-side .uc-body { max-width: 50ch; }
+  @media (max-width: 1280px) {
+    .uc-page-side { grid-column: 1 / -1; padding-left: 0; border-left: 0; margin-top: 2.5rem; }
+    .uc-page-side .uc-lead, .uc-page-side .uc-body { max-width: 60ch; }
+  }
+
+  .uc-phases {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .uc-phase {
+    border-bottom: 1px solid var(--color-uc-line);
+    padding: clamp(2.5rem, 4vw, 4rem) 0;
+  }
+  .uc-phase-grid { row-gap: 2rem; }
+
+  .uc-phase-num-col { grid-column: 1 / span 2; }
+  .uc-phase-num-col .uc-mono { margin: 0 0 0.6rem; }
+  .uc-phase-num {
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .uc-phase-title-col {
+    grid-column: 3 / span 5;
+  }
+  .uc-phase-title {
+    font-size: clamp(1.4rem, 2vw, 1.95rem);
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin: 0 0 0.75rem;
+  }
+  .uc-phase-sub {
+    color: var(--color-uc-grey);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .uc-phase-body-col { grid-column: 8 / span 3; padding-right: 1rem; }
+  .uc-phase-out-col { grid-column: 11 / span 2; }
+  .uc-phase-out-col .uc-mono { margin: 0 0 0.6rem; }
+  .uc-phase-out-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1100px) {
+    .uc-phase-num-col   { grid-column: 1 / span 3; }
+    .uc-phase-title-col { grid-column: 4 / span 9; }
+    .uc-phase-body-col  { grid-column: 4 / span 6; }
+    .uc-phase-out-col   { grid-column: 10 / span 3; }
+  }
+  @media (max-width: 760px) {
+    .uc-phase-num-col,
+    .uc-phase-title-col,
+    .uc-phase-body-col,
+    .uc-phase-out-col { grid-column: 1 / -1; }
+  }
+</style>

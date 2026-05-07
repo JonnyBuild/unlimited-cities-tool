@@ -1,0 +1,111 @@
+---
+import type { CaseStudy } from '../data/cases';
+import { link } from '../utils/link';
+
+interface Props {
+  caseStudy: CaseStudy;
+  index: number;
+}
+const { caseStudy, index } = Astro.props;
+const { slug, city, country, theme, oneLiner } = caseStudy;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<a href={link(`/cases/${slug}`)} class="uc-case-row">
+  <span class="uc-mono uc-case-row-num">{num}</span>
+  <span class="uc-case-row-city">{city}</span>
+  <span class="uc-mono uc-case-row-country">{country}</span>
+  <span class="uc-case-row-theme">{theme}</span>
+  <span class="uc-case-row-line">{oneLiner}</span>
+  <span class="uc-case-row-arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .uc-case-row {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(180px, 2fr) minmax(110px, 1fr) minmax(180px, 2fr) minmax(220px, 3fr) 1.5rem;
+    align-items: baseline;
+    column-gap: var(--grid-gutter);
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--color-uc-line);
+    color: var(--color-uc-ink);
+    transition: padding-left 0.25s ease, border-color 0.25s ease;
+  }
+  .uc-case-row:last-child {
+    border-bottom: 1px solid var(--color-uc-line);
+  }
+  .uc-case-row:hover {
+    padding-left: 0.75rem;
+    border-top-color: var(--color-uc-ink);
+  }
+  .uc-case-row:hover + .uc-case-row {
+    border-top-color: var(--color-uc-ink);
+  }
+  .uc-case-row:hover .uc-case-row-arrow {
+    transform: translateX(4px);
+  }
+
+  .uc-case-row-num {
+    font-size: 0.78rem;
+  }
+
+  .uc-case-row-city {
+    font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .uc-case-row-country {
+    font-size: 0.75rem;
+  }
+
+  .uc-case-row-theme {
+    font-size: 0.95rem;
+    color: var(--color-uc-grey);
+    line-height: 1.4;
+  }
+
+  .uc-case-row-line {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-uc-ink);
+  }
+
+  .uc-case-row-arrow {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--color-uc-ink);
+    text-align: right;
+    transition: transform 0.25s ease;
+  }
+
+  @media (max-width: 1100px) {
+    .uc-case-row {
+      grid-template-columns: 2.5rem 1.5fr 1fr 1.5rem;
+      grid-template-areas:
+        "num city city arrow"
+        ".  country theme arrow"
+        ".  line line line";
+      row-gap: 0.5rem;
+    }
+    .uc-case-row-num   { grid-area: num; }
+    .uc-case-row-city  { grid-area: city; }
+    .uc-case-row-country { grid-area: country; }
+    .uc-case-row-theme { grid-area: theme; }
+    .uc-case-row-line  { grid-area: line; }
+    .uc-case-row-arrow { grid-area: arrow; }
+  }
+
+  @media (max-width: 600px) {
+    .uc-case-row {
+      grid-template-columns: 2.25rem 1fr 1.5rem;
+      grid-template-areas:
+        "num city arrow"
+        ".  country arrow"
+        ".  theme theme"
+        ".  line line";
+      padding: 1.25rem 0;
+    }
+  }
+</style>
